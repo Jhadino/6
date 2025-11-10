@@ -1,0 +1,96 @@
+@startuml TeamSpirit_UseCase
+
+left to right direction
+
+actor "Игрок (Основной состав)" as Player #lightblue
+actor "Капитан" as Captain #lightblue
+actor "Тренерский штаб" as Coach #green
+actor "Аналитик" as Analyst #orange
+actor "Менеджер" as Manager #pink
+actor "Технический персонал" as Tech #violet
+actor "Фан-база" as Fans #yellow
+actor "Организатор турниров" as Tournament #red
+
+Player <|-- Captain
+
+rectangle "Киберспортивная Команда" {
+
+  usecase "Участвовать в матче/турнире" as UC_Match
+  usecase "Изучать тактики противника" as UC_Study
+  usecase "Анализировать свои replays" as UC_Replay
+  usecase "Принимать тактические решения" as UC_Decisions
+  usecase "Использовать стратегические паузы" as UC_Pause
+
+  usecase "Посещать командные тренировки" as UC_Training
+  usecase "Участвовать в разборе полетов" as UC_Debrief
+  usecase "Выполнять индивидуальные задания" as UC_Homework
+  usecase "Участвовать в скаутских пробах" as UC_Tryout
+
+  usecase "Разрабатывать тактические схемы" as UC_Strategies
+  usecase "Составлять расписание тренировок" as UC_Schedule
+  usecase "Формировать карту пиков и банов" as UC_Draft
+  usecase "Проводить психологическую подготовку" as UC_Psycho
+
+  usecase "Собирать статистику" as UC_Stats
+  usecase "Подготавливать аналитические отчеты" as UC_Reports
+  usecase "Создавать паттерны поведения" as UC_Patterns
+
+  usecase "Вести переговоры с организаторами" as UC_Negotiate
+  usecase "Управлять графиком команды" as UC_Calendar
+  usecase "Организовывать трансферы игроков" as UC_Transfer
+  usecase "Взаимодействовать с фан-базой" as UC_Fans
+  usecase "Заключать спонсорские соглашения" as UC_Sponsors
+
+  usecase "Настраивать игровое оборудование" as UC_Setup
+  usecase "Оптимизировать игровые настройки" as UC_Optimize
+  usecase "Обеспечивать стабильное подключение" as UC_Connection
+}
+
+' Связи для Игроков и Капитана
+Player -- UC_Match
+Player -- UC_Training
+Player -- UC_Debrief
+Player -- UC_Homework
+Captain -- UC_Decisions
+Captain -- UC_Pause
+
+' Связи для Тренерского штаба
+Coach -- UC_Strategies
+Coach -- UC_Schedule
+Coach -- UC_Debrief
+Coach -- UC_Psycho
+Coach -- UC_Homework
+
+' Связи для Аналитика
+Analyst -- UC_Stats
+Analyst -- UC_Reports
+Analyst -- UC_Patterns
+Analyst -- UC_Study
+
+' Связи для Менеджера
+Manager -- UC_Negotiate
+Manager -- UC_Calendar
+Manager -- UC_Transfer
+Manager -- UC_Fans
+Manager -- UC_Sponsors
+
+' Связи для Технического персонала
+Tech -- UC_Setup
+Tech -- UC_Optimize
+Tech -- UC_Connection
+
+' Связи для Фан-базы
+Fans -- UC_Fans
+
+' Связи для Организатора турниров
+Tournament -- UC_Negotiate
+Tournament -- UC_Match
+
+' Include/Extend связи
+UC_Match ..> UC_Decisions : include
+UC_Strategies ..> UC_Draft : include
+
+UC_Match <.. UC_Study : extend
+UC_Match <.. UC_Pause : extend
+
+@enduml
