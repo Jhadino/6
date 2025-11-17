@@ -1,0 +1,96 @@
+@startuml
+title Сценарий 1: Оформление заказа успешно
+
+actor Клиент
+actor Ресторан
+actor Курьер
+participant "Система Заказов" as OrderSystem
+participant "Меню Ресторана" as Menu
+database "База Данных" as DB
+participant "Платежная Система" as PaymentSystem
+
+Клиент -> OrderSystem: Выбор Ресторана
+OrderSystem -> Menu: Показать Меню
+Menu --> OrderSystem: Список Блюд
+Клиент -> OrderSystem: Выбор Еды
+Клиент -> OrderSystem: Ввод Данных Для Заказа
+OrderSystem -> DB: Сохранить Данные Заказа
+Клиент -> OrderSystem: Оформить Заказ
+OrderSystem -> Ресторан: Уведомление О Новом Заказе
+Ресторан -> OrderSystem: Подтверждение Заказа
+OrderSystem -> PaymentSystem: Обработка Платежа
+PaymentSystem --> OrderSystem: Подтверждение Платежа
+OrderSystem -> Курьер: Передать Заказ
+Курьер -> OrderSystem: Принять Заказ
+OrderSystem -> Ресторан: Заказ Принят Курьером
+Курьер -> Клиент: Доставка Заказа
+
+== Сценарий 2: Отказ от заказа рестораном ==
+
+actor Клиент
+actor Ресторан
+participant "Система Заказов" as OrderSystem
+participant "Меню Ресторана" as Menu
+database "База Данных" as DB
+
+Клиент -> OrderSystem: Выбор Ресторана
+OrderSystem -> Menu: Показать Меню
+Menu --> OrderSystem: Список Блюд
+Клиент -> OrderSystem: Выбор Еды
+Клиент -> OrderSystem: Ввод Данных Для Заказа
+OrderSystem -> DB: Сохранить Данные Заказа
+Клиент -> OrderSystem: Оформить Заказ
+OrderSystem -> Ресторан: Уведомление О Новом Заказе
+Ресторан -> OrderSystem: Отклонение Заказа
+OrderSystem -> Клиент: Уведомление об отклонении заказа
+
+== Сценарий 3: Ошибка обработки платежа ==
+
+actor Клиент
+actor Ресторан
+participant "Система Заказов" as OrderSystem
+participant "Меню Ресторана" as Menu
+database "База Данных" as DB
+participant "Платежная Система" as PaymentSystem
+
+Клиент -> OrderSystem: Выбор Ресторана
+OrderSystem -> Menu: Показать Меню
+Menu --> OrderSystem: Список Блюд
+Клиент -> OrderSystem: Выбор Еды
+Клиент -> OrderSystem: Ввод Данных Для Заказа
+OrderSystem -> DB: Сохранить Данные Заказа
+Клиент -> OrderSystem: Оформить Заказ
+OrderSystem -> Ресторан: Уведомление О Новом Заказе
+Ресторан -> OrderSystem: Подтверждение Заказа
+OrderSystem -> PaymentSystem: Обработка Платежа
+PaymentSystem --> OrderSystem: Ошибка обработки платежа
+OrderSystem -> Клиент: Уведомление об ошибке
+
+== Сценарий 4: Доставка заказа задерживается ==
+
+actor Клиент
+actor Ресторан
+actor Курьер
+participant "Система Заказов" as OrderSystem
+participant "Меню Ресторана" as Menu
+database "База Данных" as DB
+participant "Платежная Система" as PaymentSystem
+
+Клиент -> OrderSystem: Выбор Ресторана
+OrderSystem -> Menu: Показать Меню
+Menu --> OrderSystem: Список Блюд
+Клиент -> OrderSystem: Выбор Еды
+Клиент -> OrderSystem: Ввод Данных Для Заказа
+OrderSystem -> DB: Сохранить Данные Заказа
+Клиент -> OrderSystem: Оформить Заказ
+OrderSystem -> Ресторан: Уведомление О Новом Заказе
+Ресторан -> OrderSystem: Подтверждение Заказа
+OrderSystem -> PaymentSystem: Обработка Платежа
+PaymentSystem --> OrderSystem: Подтверждение Платежа
+OrderSystem -> Курьер: Передать Заказ
+Курьер -> OrderSystem: Принять Заказ
+OrderSystem -> Ресторан: Заказ Принят Курьером
+Курьер -> OrderSystem: Уведомление о задержке
+OrderSystem -> Клиент: Уведомление о задержке
+Курьер -> Клиент: Доставка Заказа
+@enduml
