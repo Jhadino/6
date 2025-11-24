@@ -1,0 +1,69 @@
+@startuml
+title Диаграмма классов "Заказ еды"
+
+class Client {
+    - clientId: String
+    - name: String
+    - address: String
+    - phone: String
+    + placeOrder(order: Order): boolean
+    + leaveReview(review: Review): boolean
+}
+
+class Restaurant {
+    - restaurantId: String
+    - name: String
+    - menu: Menu
+    + acceptOrder(order: Order): boolean
+    + declineOrder(order: Order): boolean
+    + changeOrderStatus(order: Order, status: String): void
+}
+
+class Courier {
+    - courierId: String
+    - name: String
+    + viewAvailableOrders(): List<Order>
+    + acceptOrder(order: Order): boolean
+    + deliverOrder(order: Order): void
+}
+
+class Order {
+    - orderId: String
+    - client: Client
+    - restaurant: Restaurant
+    - status: String
+    - dishes: List<Dish>
+    + updateStatus(newStatus: String): void
+}
+
+class Menu {
+    - restaurant: Restaurant
+    - dishes: List<Dish>
+    + showMenu(): List<Dish>
+}
+
+class Dish {
+    - dishId: String
+    - name: String
+    - price: double
+    + getDescription(): String
+}
+
+class Review {
+    - reviewId: String
+    - client: Client
+    - restaurant: Restaurant
+    - rating: int
+    - comment: String
+}
+
+Client -- Order : делает 
+Restaurant -- Order : обрабатывает 
+Courier -- Order : доставляет 
+Restaurant -- Menu : имеет 
+Menu -- Dish : содержит 
+Order -- Dish : включает 
+Client -- Review : оставляет 
+Restaurant -- Review : получает 
+
+@enduml
