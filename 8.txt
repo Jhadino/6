@@ -57,13 +57,13 @@ class Review {
     - comment: String
 }
 
-Client -- Order : делает 
-Restaurant -- Order : обрабатывает 
-Courier -- Order : доставляет 
-Restaurant -- Menu : имеет 
-Menu -- Dish : содержит 
-Order -- Dish : включает 
-Client -- Review : оставляет 
-Restaurant -- Review : получает 
+Client --> Order : делает
+Restaurant --> Order : обрабатывает
+Courier --> Order : доставляет
+Restaurant --> Menu : имеет
+Menu *-- Dish : содержит
+Order *-- Dish : включает
+Client --> Review : оставляет
+Restaurant --> Review : получает
 
 @enduml
